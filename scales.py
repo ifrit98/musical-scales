@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import argparse
 
 def logical2idx(x):
     x = np.asarray(x)
@@ -124,37 +125,33 @@ def make_scale(integer):
 def make_all_scales():
     return pd.DataFrame([make_scale(i).__dict__() for i in range(4096)])
 
-
-from sys import argv
-
-
-if __name__ == "__main__":
-    if len(argv) < 2: 
-        raise ValueError("Usage scales.py [num scales to produce]")
-    
-    print(argv)
-
-    if argv[1] == 'all':
-        rng = 4096
-    else: 
-        rng = int(argv[1])
-
+def test():
     ds = []
-    for i in range(rng):
+    for i in range(4048, 4096):
         s = make_scale(i)
         ds.append(s.__dict__())
-
+        print(s)
+        print()
+    print("Done!")
     df = pd.DataFrame(ds)
     print(df)
 
 
-def test():
+if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--n", default=4096, type=int, help="Number of scales to generate")
+    parser.add_argument("--test", action="store_true", default=False)
+    args = parser.parse_args()
+
+    if args.test is True:
+        test()
+        quit()
+
     ds = []
-    for i in range(4096):
+    for i in range(args.n):
         s = make_scale(i)
         ds.append(s.__dict__())
-        # print(s)
-        # print()
-    print("Done!")
+
     df = pd.DataFrame(ds)
     print(df)
