@@ -6,7 +6,7 @@ import itertools
 
 INTERPOLATIONS = [
     "interpolation", "ultrapolation", "infrapolation",
-    "infra-interpolation", "infra-ultrapolation", "infra-inter-ultrapolation"
+    # "infra-interpolation", "infra-ultrapolation", "infra-inter-ultrapolation"
 ]
 
 def calc_pos(pos,nl):
@@ -93,13 +93,12 @@ def make_slonim(oct, division, stuff_n, start_note, polation, use_muse):
         s.show('lily.png')
 
 
-def test():
-    oct = 2
-    division = 4
+def test(use_muse):
+    oct = 1
+    division = 3
     stuff_n = 2
-    polation = 'interpolation'
-    start_note = 0
-    use_muse = False
+    polation = 'ultrapolation'
+    start_note = 55
     make_slonim(oct, division, stuff_n, start_note, polation, use_muse)
 
 
@@ -107,17 +106,17 @@ def test():
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--octaves", help="Total number of octaves", type=int, default=5) #required=True)
-    parser.add_argument("--division", help="Number of divisions across N octaves", type=int, default=3)#required=True)
-    parser.add_argument("--stuff_n", help="Number of interpolation notes to 'stuff' inbetween divisions", type=int, default=2)#required=True)
-    parser.add_argument("--start_note", help="Midi note to start on", type=int, default=0) # Start on C0 
+    parser.add_argument("--octaves", help="Total number of octaves", type=int, default=5)
+    parser.add_argument("--division", help="Number of divisions across N octaves", type=int, default=3)
+    parser.add_argument("--stuff_n", help="Number of interpolation notes to 'stuff' in between divisions", type=int, default=2)
+    parser.add_argument("--start_note", help="Midi note to start on", type=int, default=55)  # Start on G4 default 
     parser.add_argument("--type", help="Interpolation Type", choices=INTERPOLATIONS, default="interpolation")
     parser.add_argument("--test", action="store_true", default=False, help="Run test without requiring arguments")
     parser.add_argument("--use_muse", action="store_true", default=False, help="Use MuseScore 4 instead of Lilypond")
     args = parser.parse_args()
 
     if args.test is True:
-        test()
+        test(args.use_muse)
         quit()
 
     if((args.octaves * 12) % args.division):
