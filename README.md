@@ -68,6 +68,8 @@ In essence, Slonimsky’s patterns are tools for exploring the outer edges of mu
 These techniques, derived from Slonimsky's explorations, provide a structured way to break free from conventional tonal patterns, allowing composers and improvisers to create more intricate and unpredictable musical ideas.
 
 
+See `Nicholas_Sloniminsky.pdf` for more details.
+
 ### Install
 ```bash
 conda create -n music python=3.12
